@@ -204,10 +204,10 @@ add more detailed configuration and setup information to the README including en
 review all files in @[docs]  and translate to english  keep the informations as close as possible to the current details
 ```
 
-#### **Prompt 16 - Actualizar Prompts (Actual)**
+#### **Prompt 17 - Traducción del README**
 
 ```
-add the last prompts to @[docs/outputs/prompts.md]
+the readme.md file need to be translate to english
 ```
 
 ---
@@ -216,7 +216,7 @@ add the last prompts to @[docs/outputs/prompts.md]
 
 ### **Updated General Statistics**
 
-- **Total Prompts:** 16 prompts
+- **Total Prompts:** 17 prompts
 - **Working Days:** 1 day (Oct 22, 2025)
 - **User Stories Created:** 11 (US-001 through US-011)
 - **Main Files Modified:**
@@ -224,7 +224,7 @@ add the last prompts to @[docs/outputs/prompts.md]
   - Documentation files translated (README, timeline, memories, prompts)
   - Project completely documented in English for GitHub
   - Memory system implemented with 10+ memories created
-  - Complete README.md created for repository
+  - Complete README.md created and translated for repository
 
 ### **Updated Prompt Categorization by Topic**
 
@@ -250,6 +250,7 @@ add the last prompts to @[docs/outputs/prompts.md]
 - Prompt 12: Memory file creation
 - Prompt 15: Translation to English
 - Prompt 16: Prompts update
+- Prompt 17: README translation
 
 #### **5. Iterative Development**
 - Prompt 3: US-001 complementation (process started)
@@ -276,7 +277,7 @@ All user stories now documented in English with complete technical specification
 - **Architecture and implementation details** recorded
 
 ### **Repository Ready** ✅
-- **Professional README.md** created for GitHub
+- **Professional README.md** created for GitHub and translated to English
 - **Complete documentation** in English
 - **All files translated** maintaining technical accuracy
 - **Ready for development** and public sharing
@@ -290,6 +291,7 @@ All user stories now documented in English with complete technical specification
 3. **✅ Repository Setup:** Professional README and documentation ready
 4. **✅ Technical Architecture:** Complete stack documented in English
 5. **✅ Project Planning:** Timeline and sprints fully detailed
+6. **✅ README Translation:** Professional README translated and ready for GitHub
 
 ---
 

@@ -5,69 +5,69 @@
 [![AWS Lambda](https://img.shields.io/badge/AWS%20Lambda-Node.js-orange.svg)](https://aws.amazon.com/lambda)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-> Sistema completo para análisis y validación de decks de Magic: The Gathering con validación automática de legalidad por formato, análisis de estructura y recomendaciones de mejora.
+> Complete system for Magic: The Gathering deck analysis and validation with automatic format legality verification, structure analysis, and improvement recommendations.
 
-## ✨ Características Principales
+## ✨ Main Features
 
-### 🔍 Validación Completa de Decks
-- **Validación por formato:** Standard, Modern, Pioneer, Commander, Legacy, Vintage, Pauper, Draft, Sealed
-- **Verificación de copias:** Control automático del número máximo de copias por carta
-- **Cartas prohibidas/restringidas:** Detección automática según listas oficiales de cada formato
-- **Análisis de legalidad:** Validación por fecha de impresión y sets legales
+### 🔍 Complete Deck Validation
+- **Format validation:** Standard, Modern, Pioneer, Commander, Legacy, Vintage, Pauper, Draft, Sealed
+- **Copy verification:** Automatic control of maximum copies per card
+- **Banned/restricted cards:** Automatic detection according to official format lists
+- **Legality analysis:** Validation by print date and legal sets
 
-### 📊 Análisis Avanzado
-- **Curva de maná:** Análisis visual de distribución de costos
-- **Base de maná:** Evaluación de consistencia de colores y tierras
-- **Agrupación por tipo:** Organización automática de cartas por categorías
-- **Sugerencias de mejora:** Recomendaciones específicas para optimización
+### 📊 Advanced Analysis
+- **Mana curve:** Visual analysis of cost distribution
+- **Mana base:** Evaluation of color consistency and lands
+- **Type grouping:** Automatic card organization by categories
+- **Improvement suggestions:** Specific recommendations for optimization
 
-### 📤 Importación y Exportación
-- **MTG Arena:** Importación directa desde formato estándar de Arena
-- **Magic Online (MTGO):** Soporte completo para formato MTGO
-- **Exportación múltiple:** Varios formatos de exportación disponibles
-- **Copy to clipboard:** Funcionalidad integrada para compartir
+### 📤 Import and Export
+- **MTG Arena:** Direct import from standard Arena format
+- **Magic Online (MTGO):** Complete support for MTGO format
+- **Multiple export:** Various export formats available
+- **Copy to clipboard:** Integrated functionality for sharing
 
-## 🏗️ Arquitectura
+## 🏗️ Architecture
 
 ### Frontend (Flutter)
-- **Framework:** Flutter 3.24.0 con Dart
+- **Framework:** Flutter 3.24.0 with Dart
 - **UI/UX:** Mobile-first responsive design
 - **Accessibility:** WCAG 2.1 AA compliance
 - **State Management:** Provider pattern
-- **Performance:** < 100ms response time objetivo
+- **Performance:** < 100ms response time target
 
 ### Backend (TypeScript/AWS Lambda)
-- **Runtime:** Node.js 20+ en AWS Lambda
-- **API:** RESTful con OpenAPI 3.0 specification
+- **Runtime:** Node.js 20+ on AWS Lambda
+- **API:** RESTful with OpenAPI 3.0 specification
 - **Validation:** Joi schema validation
-- **Error Handling:** Middleware global con business error codes
-- **Performance:** < 100ms response time, 99.9% uptime objetivo
+- **Error Handling:** Global middleware with business error codes
+- **Performance:** < 100ms response time, 99.9% uptime target
 
-### Base de Datos
-- **Primary:** DynamoDB para almacenamiento de cartas y caching
-- **External APIs:** Scryfall API (principal), Gatherer API (fallback)
-- **Caching Strategy:** Multi-level caching con invalidation automática
+### Database
+- **Primary:** DynamoDB for card storage and caching
+- **External APIs:** Scryfall API (primary), Gatherer API (fallback)
+- **Caching Strategy:** Multi-level caching with automatic invalidation
 
-### Instrumentación (FOSS)
+### Instrumentation (FOSS)
 - **Analytics:** PostHog self-hosted
 - **Error Tracking:** Sentry open source
 - **Performance Monitoring:** Web Vitals + custom traces
 - **Logging:** ELK Stack (Elasticsearch, Logstash, Kibana)
-- **Dashboards:** Grafana con alertas automáticas
+- **Dashboards:** Grafana with automatic alerts
 
-## 🚀 Instalación
+## 🚀 Installation
 
-### Prerrequisitos
+### Prerequisites
 - Node.js 20+
 - Flutter 3.24.0+
-- AWS CLI configurado
-- Docker (para desarrollo local)
+- AWS CLI configured
+- Docker (for local development)
 
-### Setup del Proyecto
+### Project Setup
 
-1. **Clonar el repositorio**
+1. **Clone the repository**
 ```bash
-git clone https://github.com/tu-usuario/mtg-deck-analyzer.git
+git clone https://github.com/your-username/mtg-deck-analyzer.git
 cd mtg-deck-analyzer
 ```
 
@@ -86,18 +86,18 @@ flutter pub get
 flutter run
 ```
 
-4. **Instrumentación (Opcional)**
+4. **Instrumentation (Optional)**
 ```bash
 cd infrastructure
 docker-compose up -d
 ```
 
-## 📖 Uso
+## 📖 Usage
 
-### Validación Básica de Deck
+### Basic Deck Validation
 
 ```typescript
-// Ejemplo de uso de la API
+// API usage example
 const response = await fetch('/api/validate-deck-size', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
@@ -115,10 +115,10 @@ const result = await response.json();
 // Result: { isValid: true, currentCount: 60, format: "modern", ... }
 ```
 
-### Frontend Flutter
+### Flutter Frontend
 
 ```dart
-// Ejemplo de uso en Flutter
+// Flutter usage example
 final validator = DeckValidationService();
 final result = await validator.validateDeck(
   deckList: deckText,
@@ -126,114 +126,114 @@ final result = await validator.validateDeck(
 );
 
 if (result.isValid) {
-  // Mostrar resultado válido
+  // Show valid result
 } else {
-  // Mostrar errores específicos
+  // Show specific errors
 }
 ```
 
-## 📋 User Stories Implementadas
+## 📋 Implemented User Stories
 
 ### Sprint 1 - MVP Core ✅
-- **US-001a:** Frontend Requirements - UI responsiva y accesible
-- **US-001b:** Backend Requirements - API RESTful con validación
-- **US-001c:** Instrumentation & Monitoring - Stack FOSS completo
-- **US-002:** Card Existence Validation - Verificación de cartas válidas
-- **US-003:** Card Copies & Restrictions - Control de copias y banned cards
-- **US-004:** Format Legality Analysis - Análisis de legalidad por formato
+- **US-001a:** Frontend Requirements - Responsive and accessible UI
+- **US-001b:** Backend Requirements - RESTful API with validation
+- **US-001c:** Instrumentation & Monitoring - Complete FOSS stack
+- **US-002:** Card Existence Validation - Verification of valid cards
+- **US-003:** Card Copies & Restrictions - Copy control and banned cards
+- **US-004:** Format Legality Analysis - Legality analysis by format
 
-### Sprint 2 - Performance Analysis (Planificado)
-- **US-005:** Mana Curve Analysis - Análisis visual de curva de maná
-- **US-006:** Mana Base Analysis - Evaluación de base de maná
-- **US-007:** Mana Base Improvements - Sugerencias de optimización
-- **US-008:** Card Grouping by Type - Organización por categorías
+### Sprint 2 - Performance Analysis (Planned)
+- **US-005:** Mana Curve Analysis - Visual mana curve analysis
+- **US-006:** Mana Base Analysis - Mana base evaluation
+- **US-007:** Mana Base Improvements - Optimization suggestions
+- **US-008:** Card Grouping by Type - Organization by categories
 
-### Sprint 3 - Import/Export (Planificado)
-- **US-009:** MTG Arena Import - Importación desde Arena
-- **US-010:** MTGO Import - Importación desde MTGO
-- **US-011:** Deck Export - Exportación múltiple de formatos
+### Sprint 3 - Import/Export (Planned)
+- **US-009:** MTG Arena Import - Import from Arena
+- **US-010:** MTGO Import - Import from MTGO
+- **US-011:** Deck Export - Multiple export formats
 
 ## 🧪 Testing
 
-### Estrategia de Testing
-- **Unit Tests:** Lógica de negocio y utilidades
-- **Integration Tests:** API endpoints y servicios externos
-- **E2E Tests:** Flujos completos de usuario
-- **Performance Tests:** Load testing y benchmarks
+### Testing Strategy
+- **Unit Tests:** Business logic and utilities
+- **Integration Tests:** API endpoints and external services
+- **E2E Tests:** Complete user flows
+- **Performance Tests:** Load testing and benchmarks
 
 ```bash
-# Ejecutar tests
+# Run tests
 npm test                    # Backend tests
 flutter test               # Frontend tests
 npm run test:e2e          # End-to-end tests
 npm run test:performance  # Performance benchmarks
 ```
 
-## 📊 Métricas de Performance
+## 📊 Performance Metrics
 
-### Objetivos de Calidad
+### Quality Objectives
 - **Response Time:** < 100ms (API), < 100ms (UI updates)
 - **Uptime:** 99.9% availability
-- **Accuracy:** 100% precisión en validación de cartas existentes
+- **Accuracy:** 100% accuracy in validating existing cards
 - **Accessibility:** WCAG 2.1 AA compliance
-- **Mobile Performance:** 60fps en dispositivos móviles
+- **Mobile Performance:** 60fps on mobile devices
 
-### Monitoreo
-- **Real-time Dashboards:** Kibana y Grafana
-- **Error Tracking:** Sentry con context completo
-- **Performance Monitoring:** Web Vitals automáticos
-- **User Analytics:** PostHog para comportamiento de usuario
+### Monitoring
+- **Real-time Dashboards:** Kibana and Grafana
+- **Error Tracking:** Sentry with complete context
+- **Performance Monitoring:** Automatic Web Vitals
+- **User Analytics:** PostHog for user behavior
 
-## 🤝 Contribución
+## 🤝 Contributing
 
-### Como Contribuir
-1. Fork el proyecto
-2. Crea una branch para tu feature (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
-4. Push a la branch (`git push origin feature/AmazingFeature`)
-5. Abre un Pull Request
+### How to Contribute
+1. Fork the project
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-### Estándares de Código
+### Code Standards
 - **TypeScript:** ESLint + Prettier
 - **Flutter:** Dart analyzer + Flutter linting rules
 - **Commits:** Conventional commits
-- **Testing:** 80% code coverage mínimo
+- **Testing:** Minimum 80% code coverage
 
-## 📝 Documentación
+## 📝 Documentation
 
-### Documentación Técnica
+### Technical Documentation
 - [API Specification](./docs/api-specification.md)
 - [Architecture Guide](./docs/architecture.md)
 - [Deployment Guide](./docs/deployment.md)
 - [User Stories](./docs/US/)
 
-### Recursos de MTG
+### MTG Resources
 - [Scryfall API Documentation](https://scryfall.com/docs/api)
 - [MTG Format Rules](https://magic.wizards.com/en/game-info/gameplay/formats)
 - [Banned & Restricted Lists](https://magic.wizards.com/en/game-info/gameplay/formats/banned-restricted)
 
-## 🐛 Reportar Issues
+## 🐛 Reporting Issues
 
-Si encuentras un bug o tienes una sugerencia, por favor crea un issue en GitHub con:
-- Descripción detallada del problema
-- Pasos para reproducir
-- Deck list de ejemplo (si aplica)
-- Formato y resultado esperado
+If you find a bug or have a suggestion, please create a GitHub issue with:
+- Detailed problem description
+- Steps to reproduce
+- Example deck list (if applicable)
+- Format and expected result
 
-## 📄 Licencia
+## 📄 License
 
-Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) para más detalles.
+This project is under the MIT License - see the [LICENSE](LICENSE) file for more details.
 
 ## 🙏 Acknowledgments
 
-- **Scryfall** por su excelente API de cartas de MTG
-- **Magic: The Gathering** por el juego que inspiró este proyecto
-- **Flutter Team** por el framework móvil excepcional
-- **AWS** por la infraestructura cloud confiable
+- **Scryfall** for their excellent MTG card API
+- **Magic: The Gathering** for the game that inspired this project
+- **Flutter Team** for the exceptional mobile framework
+- **AWS** for reliable cloud infrastructure
 
-## 🏃‍♂️ Inicio Rápido (Quick Start)
+## 🏃‍♂️ Quick Start
 
-### Para Desarrolladores
+### For Developers
 
 1. **Backend Development:**
 ```bash
@@ -259,7 +259,7 @@ cd infrastructure
 docker-compose up  # Start monitoring stack
 ```
 
-### Para Usuarios Finales
+### For End Users
 
 1. **Deploy to Production:**
 ```bash
@@ -275,30 +275,30 @@ POSTHOG_API_KEY=your_key
 SENTRY_DSN=your_dsn
 ```
 
-## 📊 Estado del Proyecto
+## 📊 Project Status
 
-### ✅ Completado (Sprint 1 - MVP Core)
-- [x] API de validación de deck size
-- [x] UI responsiva en Flutter
-- [x] Sistema de instrumentación FOSS
-- [x] Validación de cartas existentes
-- [x] Control de copias y cartas banned/restricted
-- [x] Análisis de legalidad por formato
+### ✅ Completed (Sprint 1 - MVP Core)
+- [x] Deck size validation API
+- [x] Responsive UI in Flutter
+- [x] FOSS instrumentation system
+- [x] Card existence validation
+- [x] Copy control and banned/restricted cards
+- [x] Format legality analysis
 
-### 🚧 En Desarrollo (Sprint 2 - Analysis Features)
-- [ ] Análisis de curva de maná
-- [ ] Evaluación de base de maná
-- [ ] Sugerencias de optimización
-- [ ] Agrupación de cartas por tipo
+### 🚧 In Development (Sprint 2 - Analysis Features)
+- [ ] Mana curve analysis
+- [ ] Mana base evaluation
+- [ ] Optimization suggestions
+- [ ] Card grouping by type
 
-### 📋 Planificado (Sprint 3 - Import/Export)
-- [ ] Importación desde MTG Arena
-- [ ] Importación desde MTGO
-- [ ] Exportación múltiple de formatos
+### 📋 Planned (Sprint 3 - Import/Export)
+- [ ] Import from MTG Arena
+- [ ] Import from MTGO
+- [ ] Multiple export formats
 
-## 🎯 Ejemplos de Uso
+## 🎯 Usage Examples
 
-### Validación de Deck Modern
+### Modern Deck Validation
 
 ```json
 // Request
@@ -368,9 +368,9 @@ class DeckValidatorScreen extends StatefulWidget {
 }
 ```
 
-## 🔧 Configuración de Desarrollo
+## 🔧 Development Configuration
 
-### Variables de Entorno
+### Environment Variables
 
 ```bash
 # Backend (.env)
@@ -386,7 +386,7 @@ POSTHOG_API_KEY=your_posthog_key
 SENTRY_DSN=your_sentry_dsn
 ```
 
-### Scripts Disponibles
+### Available Scripts
 
 ```bash
 # Backend
@@ -449,50 +449,50 @@ services:
 
 ## 📈 Performance & Monitoring
 
-### Métricas Clave
+### Key Metrics
 - **API Response Time:** < 100ms P95
-- **UI Response Time:** < 100ms para updates
+- **UI Response Time:** < 100ms for updates
 - **Uptime:** 99.9% monthly
 - **Error Rate:** < 0.1%
-- **Mobile Performance:** 60fps consistent
+- **Mobile Performance:** Consistent 60fps
 
-### Dashboards Disponibles
-- **Kibana:** Logging y error analysis
-- **Grafana:** Performance metrics y alertas
-- **PostHog:** User behavior y conversion funnels
-- **Sentry:** Error tracking y performance monitoring
+### Available Dashboards
+- **Kibana:** Logging and error analysis
+- **Grafana:** Performance metrics and alerts
+- **PostHog:** User behavior and conversion funnels
+- **Sentry:** Error tracking and performance monitoring
 
 ## 🤖 API Endpoints
 
-| Endpoint | Method | Descripción | Status |
+| Endpoint | Method | Description | Status |
 |----------|--------|-------------|---------|
-| `/api/validate-deck-size` | POST | Validar tamaño de deck | ✅ |
-| `/api/validate-cards` | POST | Verificar cartas existentes | ✅ |
-| `/api/check-legality` | POST | Análisis de legalidad | ✅ |
-| `/api/analyze-mana-curve` | POST | Curva de maná | 🚧 |
-| `/api/analyze-mana-base` | POST | Base de maná | 🚧 |
-| `/api/import/arena` | POST | Importar desde Arena | 📋 |
-| `/api/import/mtgo` | POST | Importar desde MTGO | 📋 |
+| `/api/validate-deck-size` | POST | Validate deck size | ✅ |
+| `/api/validate-cards` | POST | Verify existing cards | ✅ |
+| `/api/check-legality` | POST | Legality analysis | ✅ |
+| `/api/analyze-mana-curve` | POST | Mana curve | 🚧 |
+| `/api/analyze-mana-base` | POST | Mana base | 🚧 |
+| `/api/import/arena` | POST | Import from Arena | 📋 |
+| `/api/import/mtgo` | POST | Import from MTGO | 📋 |
 
-## 📚 Documentación Adicional
+## 📚 Additional Documentation
 
-- [📖 API Documentation](./docs/api-specification.md) - OpenAPI 3.0 completa
-- [🏗️ Architecture Guide](./docs/architecture.md) - Diagramas y decisiones técnicas
-- [🚀 Deployment Guide](./docs/deployment.md) - Setup de producción paso a paso
-- [📋 User Stories](./docs/US/) - Especificaciones funcionales detalladas
-- [🧪 Testing Guide](./docs/testing.md) - Estrategia y ejemplos de testing
+- [📖 API Documentation](./docs/api-specification.md) - Complete OpenAPI 3.0
+- [🏗️ Architecture Guide](./docs/architecture.md) - Diagrams and technical decisions
+- [🚀 Deployment Guide](./docs/deployment.md) - Step-by-step production setup
+- [📋 User Stories](./docs/US/) - Detailed functional specifications
+- [🧪 Testing Guide](./docs/testing.md) - Strategy and testing examples
 
-## 🛡️ Seguridad
+## 🛡️ Security
 
-- **CORS:** Configuración estricta de origenes permitidos
-- **Rate Limiting:** Límite de requests por IP/usuario
-- **Input Validation:** Sanitización completa de inputs
-- **Error Handling:** No exposición de información sensible
-- **Privacy:** GDPR compliance y data minimization
+- **CORS:** Strict origin configuration
+- **Rate Limiting:** Request limits per IP/user
+- **Input Validation:** Complete input sanitization
+- **Error Handling:** No sensitive information exposure
+- **Privacy:** GDPR compliance and data minimization
 
-## 📄 Formatos de MTG Soportados
+## 📄 Supported MTG Formats
 
-| Formato | Min Cards | Max Cards | Sideboard | Status |
+| Format | Min Cards | Max Cards | Sideboard | Status |
 |---------|-----------|-----------|-----------|---------|
 | Standard | 60 | - | 15 | ✅ |
 | Modern | 60 | - | 15 | ✅ |
@@ -504,7 +504,7 @@ services:
 | Draft | 40 | - | 0 | ✅ |
 | Sealed | 40 | - | 0 | ✅ |
 
-## 🎮 Ejemplos de Decks
+## 🎮 Deck Examples
 
 ### Modern Burn
 ```json
@@ -530,21 +530,21 @@ services:
 }
 ```
 
-## 🌟 Características Destacadas
+## 🌟 Highlighted Features
 
-- **🔍 Validación 100% precisa** con datos actualizados de Scryfall
-- **📱 Mobile-first design** optimizado para análisis en cualquier dispositivo
-- **⚡ Performance excepcional** con respuestas en milisegundos
-- **🛡️ Privacy-first** con control total sobre datos de usuario
-- **🔧 Self-hosted** completo con Docker para deployment fácil
-- **📊 Analytics completo** para entender comportamiento de usuarios
+- **🔍 100% accurate validation** with updated data from Scryfall
+- **📱 Mobile-first design** optimized for analysis on any device
+- **⚡ Exceptional performance** with millisecond responses
+- **🛡️ Privacy-first** with full user data control
+- **🔧 Complete self-hosted** with Docker for easy deployment
+- **📊 Complete analytics** to understand user behavior
 
 ---
 
-## 📞 Soporte
+## 📞 Support
 
-- **Issues:** [GitHub Issues](https://github.com/tu-usuario/mtg-deck-analyzer/issues)
-- **Discussions:** [GitHub Discussions](https://github.com/tu-usuario/mtg-deck-analyzer/discussions)
-- **Documentation:** [Wiki](https://github.com/tu-usuario/mtg-deck-analyzer/wiki)
+- **Issues:** [GitHub Issues](https://github.com/your-username/mtg-deck-analyzer/issues)
+- **Discussions:** [GitHub Discussions](https://github.com/your-username/mtg-deck-analyzer/discussions)
+- **Documentation:** [Wiki](https://github.com/your-username/mtg-deck-analyzer/wiki)
 
-**¿Tienes un deck que quieres validar? ¡Prueba la aplicación y ayúdanos a mejorarla!** 🚀
+**Do you have a deck you want to validate? Try the application and help us improve it!** 🚀
