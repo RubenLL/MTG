@@ -205,7 +205,8 @@ npm run test:performance  # Performance benchmarks
 - [API Specification](./docs/api-specification.md)
 - [Architecture Guide](./docs/architecture.md)
 - [Deployment Guide](./docs/deployment.md)
-- [User Stories](./docs/US/)
+- [User Stories (US)](https://github.com/RubenLL/MTG/tree/main/docs/US)
+
 
 ### MTG Resources
 - [Scryfall API Documentation](https://scryfall.com/docs/api)
