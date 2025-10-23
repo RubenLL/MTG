@@ -29,14 +29,14 @@ module.exports = {
   restoreMocks: true,
 
   // Mock AWS services by default
-  moduleNameMapping: {
+  moduleNameMapper: {
     '^@aws-sdk/(.*)': '<rootDir>/tests/mocks/aws/$1',
   },
 
   // Global test configuration
-  globals: {
-    'ts-jest': {
-      tsconfig: 'tsconfig.json',
-    },
+  transform: {
+    '^.+\\.ts$': ['ts-jest', { tsconfig: 'tsconfig.json' }],
   },
+  testPathIgnorePatterns: ['/node_modules/', '/dist/', '/build/'],
+  moduleFileExtensions: ['ts', 'js', 'json'],
 };

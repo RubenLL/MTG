@@ -1,4 +1,8 @@
 // Use cases for MTG Deck Analyzer
-export * from './validateDeckSize';
-export * from './validateCards';
-export * from './analyzeDeckComposition';
+// Re-export use case classes and factories
+export { ValidateDeckSizeUseCase, createValidateDeckSizeUseCase } from './validateDeckSize';
+export { ValidateCardsUseCase, createValidateCardsUseCase } from './validateCards';
+export {
+  AnalyzeDeckCompositionUseCase,
+  createAnalyzeDeckCompositionUseCase,
+} from './analyzeDeckComposition';

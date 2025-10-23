@@ -172,44 +172,13 @@ export class RequestId {
 }
 
 // Magic: The Gathering card colors
-export enum CardColor {
-  WHITE = 'W',
-  BLUE = 'U',
-  BLACK = 'B',
-  RED = 'R',
-  GREEN = 'G',
-  COLORLESS = 'C',
-}
+export { CardColor } from '../entities';
 
 // Card rarity levels
-export enum CardRarity {
-  COMMON = 'common',
-  UNCOMMON = 'uncommon',
-  RARE = 'rare',
-  MYTHIC = 'mythic',
-}
+export { CardRarity } from '../entities';
 
 // Supported MTG formats
-export enum MTGFormat {
-  STANDARD = 'standard',
-  MODERN = 'modern',
-  PIONEER = 'pioneer',
-  COMMANDER = 'commander',
-  LEGACY = 'legacy',
-  VINTAGE = 'vintage',
-  PAUPER = 'pauper',
-  DRAFT = 'draft',
-  SEALED = 'sealed',
-}
+export { MTGFormat } from '../entities';
 
 // Validation error codes
-export enum ValidationErrorCode {
-  CARD_NOT_FOUND = 'CARD_NOT_FOUND',
-  INVALID_CARD_COUNT = 'INVALID_CARD_COUNT',
-  CARD_BANNED = 'CARD_BANNED',
-  CARD_RESTRICTED = 'CARD_RESTRICTED',
-  INVALID_FORMAT = 'INVALID_FORMAT',
-  DECK_SIZE_INVALID = 'DECK_SIZE_INVALID',
-  TOO_MANY_COPIES = 'TOO_MANY_COPIES',
-  INVALID_INPUT = 'INVALID_INPUT',
-}
+export { ValidationErrorCode } from '../entities';

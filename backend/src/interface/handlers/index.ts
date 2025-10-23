@@ -1,4 +1,5 @@
 // HTTP handlers for API endpoints
-export * from './validateDeckSize';
-export * from './validateCards';
-export * from './analyzeDeckComposition';
+// HTTP handlers for API endpoints
+export { validateDeckSizeHandler } from './validateDeckSize';
+export { handler } from './validateCards';
+export { handler as analyzeDeckCompositionHandler } from './analyzeDeckComposition';

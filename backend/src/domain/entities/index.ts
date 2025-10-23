@@ -24,12 +24,62 @@ export interface Card {
 }
 
 /**
+ * Represents a card in deck list input for validation
+ */
+export interface DeckListCard {
+  readonly cardName: string;
+  readonly quantity: number;
+  readonly isSideboard?: boolean;
+}
+
+/**
+ * Input for deck size validation
+ */
+export interface DeckSizeValidationInput {
+  readonly deckList: readonly DeckListCard[];
+  readonly format: MTGFormat;
+  readonly includeSideboard?: boolean;
+}
+
+/**
+ * Validation result for deck size
+ */
+export interface DeckSizeValidationResult {
+  readonly isValid: boolean;
+  readonly currentCount: number;
+  readonly validRange: {
+    readonly min: number;
+    readonly max: number | null;
+  };
+  readonly format: MTGFormat;
+  readonly message: string;
+  readonly validationDetails: {
+    readonly mainDeckCount: number;
+    readonly sideboardCount: number;
+    readonly totalCards: number;
+    readonly formatRequirements: string;
+  };
+  readonly errors: readonly ValidationError[];
+}
+
+/**
  * Represents a card in a deck list with quantity
  */
 export interface DeckCard {
   readonly card: Card;
   readonly quantity: number;
   readonly isSideboard: boolean;
+}
+
+/**
+ * Represents a validation error
+ */
+export interface ValidationError {
+  readonly code: ValidationErrorCode;
+  readonly message: string;
+  readonly field?: string;
+  readonly value?: unknown;
+  readonly cardName?: string;
 }
 
 /**
@@ -43,17 +93,6 @@ export interface Deck {
   readonly totalCards: number;
   readonly isValid: boolean;
   readonly validationErrors: readonly ValidationError[];
-}
-
-/**
- * Represents a validation error
- */
-export interface ValidationError {
-  readonly code: ValidationErrorCode;
-  readonly message: string;
-  readonly field?: string;
-  readonly value?: unknown;
-  readonly cardName?: string;
 }
 
 /**
@@ -103,6 +142,9 @@ export enum ValidationErrorCode {
   CARD_RESTRICTED = 'CARD_RESTRICTED',
   INVALID_FORMAT = 'INVALID_FORMAT',
   DECK_SIZE_INVALID = 'DECK_SIZE_INVALID',
+  DECK_SIZE_TOO_SMALL = 'DECK_SIZE_TOO_SMALL',
+  DECK_SIZE_TOO_LARGE = 'DECK_SIZE_TOO_LARGE',
+  SIDEBBOARD_SIZE_INVALID = 'SIDEBBOARD_SIZE_INVALID',
   TOO_MANY_COPIES = 'TOO_MANY_COPIES',
   INVALID_INPUT = 'INVALID_INPUT',
 }

@@ -1,8 +1,10 @@
 // Repository implementations
+import { CardId, CardName } from '../../domain/valueObjects';
+import { Card, Deck } from '../../domain/entities';
+
 // TODO: Implement when needed
 
 // Example repository interface:
-/*
 export interface CardRepository {
   findById(id: CardId): Promise<Card | null>;
   findByName(name: CardName): Promise<Card[]>;
@@ -18,4 +20,3 @@ export interface DeckRepository {
   update(deck: Deck): Promise<void>;
   delete(id: string): Promise<void>;
 }
-*/

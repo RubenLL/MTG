@@ -4,7 +4,7 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 
 // Import handlers when implemented
-// import { validateDeckSizeHandler } from './interface/handlers/validateDeckSize';
+import { validateDeckSizeHandler } from './handlers/validateDeckSize';
 
 export const handler = async (
   event: APIGatewayProxyEvent,
@@ -31,42 +31,46 @@ export const handler = async (
       };
     }
 
-    // API endpoints will be routed here when implemented
-    // Example routing:
-    /*
+    // API endpoints routing
     switch (path) {
       case '/api/validate-deck-size':
         return await validateDeckSizeHandler(event);
       case '/api/validate-cards':
-        return await validateCardsHandler(event);
+        return {
+          statusCode: 501,
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            error: 'Not Implemented',
+            message: 'Validate cards endpoint not yet implemented',
+          }),
+        };
+      case '/api/analyze-deck-composition':
+        return {
+          statusCode: 501,
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            error: 'Not Implemented',
+            message: 'Analyze deck composition endpoint not yet implemented',
+          }),
+        };
       default:
         return {
           statusCode: 404,
-          headers: { 'Content-Type': 'application/json' },
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+          },
           body: JSON.stringify({
             error: 'Not Found',
             message: `Route ${method} ${path} not found`,
+            availableEndpoints: [
+              'GET /health',
+              'POST /api/validate-deck-size',
+              // Add more endpoints as implemented
+            ],
           }),
         };
     }
-    */
-
-    // Default response for unimplemented endpoints
-    return {
-      statusCode: 501,
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-      },
-      body: JSON.stringify({
-        error: 'Not Implemented',
-        message: `Endpoint ${method} ${path} is not yet implemented`,
-        availableEndpoints: [
-          'GET /health',
-          // Add implemented endpoints here
-        ],
-      }),
-    };
   } catch (error) {
     console.error('Unhandled error in Lambda handler:', error);
 
