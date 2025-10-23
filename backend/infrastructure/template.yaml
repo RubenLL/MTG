@@ -1,0 +1,158 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: 'MTG Deck Analyzer Backend - Clean Architecture with TypeScript'
+
+Globals:
+  Function:
+    Timeout: 30
+    MemorySize: 512
+    Runtime: nodejs20.x
+    Architectures:
+      - x86_64
+    Environment:
+      Variables:
+        AWS_REGION: !Ref AWS::Region
+        DYNAMODB_TABLE_PREFIX: !Ref DynamoDBTablePrefix
+        SCRYFALL_API_BASE: 'https://api.scryfall.com'
+        LOG_LEVEL: 'info'
+
+Parameters:
+  DynamoDBTablePrefix:
+    Type: String
+    Default: 'mtg-'
+    Description: Prefix for DynamoDB table names
+
+  Environment:
+    Type: String
+    Default: 'dev'
+    AllowedValues:
+      - dev
+      - staging
+      - prod
+    Description: Deployment environment
+
+Resources:
+  # API Gateway
+  ApiGateway:
+    Type: AWS::Serverless::Api
+    Properties:
+      Name: !Sub 'mtg-deck-analyzer-${Environment}'
+      StageName: !Ref Environment
+      Cors:
+        AllowMethods: "'GET,POST,PUT,DELETE,OPTIONS'"
+        AllowHeaders: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Request-Id'"
+        AllowOrigin: "'*'"
+
+  # DynamoDB Tables
+  CardsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub '${DynamoDBTablePrefix}cards'
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: pk
+          AttributeType: S
+        - AttributeName: sk
+          AttributeType: S
+        - AttributeName: gsi1pk
+          AttributeType: S
+        - AttributeName: gsi1sk
+          AttributeType: S
+      KeySchema:
+        - AttributeName: pk
+          KeyType: HASH
+        - AttributeName: sk
+          KeyType: RANGE
+      GlobalSecondaryIndexes:
+        - IndexName: GSI1
+          KeySchema:
+            - AttributeName: gsi1pk
+              KeyType: HASH
+            - AttributeName: gsi1sk
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
+          BillingMode: PAY_PER_REQUEST
+
+  # Main Lambda Function
+  DeckAnalyzerFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub 'mtg-deck-analyzer-${Environment}'
+      CodeUri: dist/
+      Handler: index.handler
+      Events:
+        HealthCheck:
+          Type: Api
+          Properties:
+            RestApiId: !Ref ApiGateway
+            Path: /health
+            Method: get
+        ValidateDeckSize:
+          Type: Api
+          Properties:
+            RestApiId: !Ref ApiGateway
+            Path: /api/validate-deck-size
+            Method: post
+        ValidateCards:
+          Type: Api
+          Properties:
+            RestApiId: !Ref ApiGateway
+            Path: /api/validate-cards
+            Method: post
+        CheckLegality:
+          Type: Api
+          Properties:
+            RestApiId: !Ref ApiGateway
+            Path: /api/check-legality
+            Method: post
+
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref CardsTable
+        - Statement:
+            - Effect: Allow
+              Action:
+                - s3:GetObject
+                - s3:PutObject
+              Resource: !Sub 'arn:aws:s3:::mtg-deck-lists-${AWS::Region}/*'
+        - Statement:
+            - Effect: Allow
+              Action:
+                - s3:GetObject
+                - s3:PutObject
+              Resource: !Sub 'arn:aws:s3:::mtg-analysis-reports-${AWS::Region}/*'
+
+  # CloudWatch Logs
+  LambdaExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaRole
+
+Outputs:
+  ApiGatewayUrl:
+    Description: 'API Gateway endpoint URL'
+    Value: !Sub 'https://${ApiGateway}.execute-api.${AWS::Region}.amazonaws.com/${Environment}'
+    Export:
+      Name: !Sub '${AWS::StackName}-ApiUrl'
+
+  CardsTableName:
+    Description: 'DynamoDB Cards table name'
+    Value: !Ref CardsTable
+    Export:
+      Name: !Sub '${AWS::StackName}-CardsTable'
+
+  FunctionName:
+    Description: 'Lambda function name'
+    Value: !Ref DeckAnalyzerFunction
+    Export:
+      Name: !Sub '${AWS::StackName}-Function'
