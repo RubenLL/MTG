@@ -72,13 +72,18 @@ create a prompts.md file and save all the prompts used since we started working 
 
 ### **General Statistics**
 
-- **Total Prompts:** 10 prompts
-- **Working Days:** 1 day (Oct 22, 2025)
+- **Total Prompts:** 19 prompts
+- **Working Days:** 2 days (Oct 22-23, 2025)
 - **User Stories Created:** 11 (US-001 through US-011)
 - **Main Files Modified:**
   - `docs/US/US-001-deck-size-validation.md` (extensively complemented)
   - `docs/US/US-002-card-existence-validation.md` through `docs/US/US-011-deck-export.md` (created)
   - `projectTimeline.md` (created)
+  - All user stories translated to English
+  - Documentation files translated (README, timeline, memories, prompts)
+  - Project completely documented in English for GitHub
+  - Memory system implemented with 10+ memories created
+  - Complete README.md created and translated for repository
   - `docs/US/US-001a-frontend-requirements.md` (created)
   - `docs/US/US-001b-backend-requirements.md` (created)
   - `docs/US/US-001c-instrumentation-monitoring.md` (created)
@@ -109,6 +114,12 @@ create a prompts.md file and save all the prompts used since we started working 
 #### **5. Documentation**
 
 - Prompt 10: Creation of this prompts file
+- Prompt 11: Project memories creation
+- Prompt 12: Memory file creation
+- Prompt 15: Translation to English
+- Prompt 16: Prompts update
+- Prompt 17: README translation
+- Prompt 19: English-only language policy
 
 ---
 
@@ -216,8 +227,8 @@ the readme.md file need to be translate to english
 
 ### **Updated General Statistics**
 
-- **Total Prompts:** 17 prompts
-- **Working Days:** 1 day (Oct 22, 2025)
+- **Total Prompts:** 19 prompts
+- **Working Days:** 2 days (Oct 22-23, 2025)
 - **User Stories Created:** 11 (US-001 through US-011)
 - **Main Files Modified:**
   - All user stories translated to English
@@ -251,6 +262,8 @@ the readme.md file need to be translate to english
 - Prompt 15: Translation to English
 - Prompt 16: Prompts update
 - Prompt 17: README translation
+- Prompt 18: Daily prompts registration
+- Prompt 19: English-only language policy
 
 #### **5. Iterative Development**
 - Prompt 3: US-001 complementation (process started)
@@ -314,4 +327,22 @@ All user stories now documented in English with complete technical specification
 
 ---
 
-*This file is automatically updated with each new user prompt to maintain a complete project progress record.*
+### **Day 2 - Daily Prompts Registration (Oct 23, 2025)**
+
+#### **Prompt 18 - Daily Prompts Registration**
+
+```
+quiero que todos los prompt que realize hoy sean registrados en @[docs/outputs/prompts.md] agrupados por dias
+#### **Prompt 19 - English-Only Language Policy**
+
+```
+todo el codigo y documentacion que sea generado tiene que estar escrito en ingles
+#### **Prompt 20 - Backend Project Structure Creation**
+
+```
+siguiendo las reflas definindas en @[file:///Users/ruben.lopez.deleon/Documents/Personal/Projetos/MTG/MTG/.windsurf/rules/techlead-backend-persona.md]  dentro del directorio backend crea una structura inicial de proyecto para un proyecto de backend  con a criacion del proyecto crea un archivo techdecisions.md que sirva para definir las deciones tomadas y que sirva para guiar a los desenvolvedores en el futuro y mantener la coherencia arquitectural y de programacion
+```
+
+---
+
+*This file is automatically updated with each new user prompt to maintain a complete project progress record. All prompts are organized by day and include comprehensive statistics and categorization.*

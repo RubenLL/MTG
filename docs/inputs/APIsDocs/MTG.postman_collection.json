@@ -1,0 +1,74 @@
+{
+	"info": {
+		"_postman_id": "d6b69c22-dc9b-485f-b9bf-9a820453e181",
+		"name": "MTG",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17163149"
+	},
+	"item": [
+		{
+			"name": "Get Fuzzy Card",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "User-Agent",
+						"value": "MTGTestApp/1.0"
+					},
+					{
+						"key": "Accept",
+						"value": "*/*"
+					}
+				],
+				"url": {
+					"raw": "https://api.scryfall.com/cards/named?fuzzy=Necropotence",
+					"protocol": "https",
+					"host": [
+						"api",
+						"scryfall",
+						"com"
+					],
+					"path": [
+						"cards",
+						"named"
+					],
+					"query": [
+						{
+							"key": "fuzzy",
+							"value": "Necropotence"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://api.magicthegathering.io/v1/cards?name=\"Archangel Avacyn\"",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.magicthegathering.io/v1/cards?name=\"Archangel Avacyn\"",
+					"protocol": "https",
+					"host": [
+						"api",
+						"magicthegathering",
+						"io"
+					],
+					"path": [
+						"v1",
+						"cards"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "\"Archangel Avacyn\""
+						}
+					]
+				},
+				"description": "Generated from cURL: curl 'https://api.magicthegathering.io/v1/cards?name=\"Archangel Avacyn\"'"
+			},
+			"response": []
+		}
+	]
+}
