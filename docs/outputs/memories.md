@@ -155,11 +155,56 @@ Technical decisions and patterns established in MTG Deck Analyzer: Iterative dev
 
 ---
 
-## 📝 Maintenance Notes
+## 📈 Recent Development Activities (Since Oct 23, 2025)
 
-- **Last updated:** October 22, 2025
-- **Total memories:** 10 active memories
-- **Project status:** Planning completed, ready for implementation
-- **Next step:** Start Sprint 1 with US-001a (Frontend Requirements)
+**ID:** `recent_development_activities`
+**Tags:** development, errors, fixes, backend, local-dev
+
+**Content:**
+Recent work on the MTG Deck Analyzer backend focused on debugging and fixing issues in the local development server:
+
+1. **Express Route Parsing Error**: Encountered `PathError` in the 404 handler due to `path-to-regexp` failing to parse wildcards (`'/*'` or `'*'`). Fixed by changing to `app.use((req, res) => { ... })` (no path for global catch-all). This resolved crashes in the bundled `dist/localDev/index.js`.
+
+2. **TypeError with Undefined req.body**: Error when accessing `req.body.format` without a payload in POST requests. Added guard checks: `if (!req.body) { return res.status(422).json(...); }`. Now handles missing payloads gracefully and returns proper error responses.
+
+3. **Documentation of Errors**: Created `docs/outputs/errors.md` to log all errors and solutions for future reference, including architectural reminders to avoid Express for serverless compliance.
+
+4. **Memory Generation**: Generated a new memory capturing these fixes and reminders for project continuity.
+
+5. **Local Dev Server Testing**: Successfully tested deck validation for various MTG formats (e.g., Modern, Commander, Draft) with correct responses for valid and invalid deck sizes. Logs show structured JSON output with request IDs and validation details.
+
+**Status**: Backend local dev server is now functional. Next: Refactor to align with Clean Architecture and serverless principles (e.g., migrate from Express to Node.js `http` module or Middy for Lambda).
+
+---
+
+## 📊 Updated Statistical Summary
+
+### **Memories by Category:**
+- **Project Management:** 3 memories (project overview, user stories, timeline)
+- **Technical Architecture:** 3 memories (technical stack, API specs, patterns)
+- **Business Logic:** 2 memories (MTG rules, import/export)
+- **Quality & Monitoring:** 2 memories (error handling, instrumentation)
+- **Development Activities:** 1 memory (recent fixes and activities)
+
+### **Most Used Tags:**
+- `project` (2) - General project information
+- `api` (2) - API specifications
+- `mtg` (2) - Magic-specific rules
+- `monitoring` (2) - Monitoring system
+- `planning` (2) - Planning and timeline
+- `development` (1) - Recent activities
+- `errors` (1) - Error fixes
+
+### **Associated Corpus:**
+- **RubenLL/MTG** - Main MTG Deck Analyzer project
+
+---
+
+## 📝 Updated Maintenance Notes
+
+- **Last updated:** October 24, 2025
+- **Total memories:** 11 active memories
+- **Project status:** Active development in Sprint 1; backend errors resolved, local testing functional
+- **Next step:** Complete refactor to serverless architecture and proceed with frontend implementation (US-001a)
 
 *This file is automatically updated when new memories are created to maintain a complete project record.*

@@ -185,40 +185,46 @@ create a prompts.md file and save all the prompts used since we started working 
 - Mobile-first responsive design
 - WCAG 2.1 AA accessibility compliance
 
-#### **Prompt 11 - Crear Memorias del Proyecto**
+#### **Prompt 11 - Create Project Memories**
 
 ```
-crea memorias de todo lo trabajado hasta ahora
+Create memories of everything worked on so far.
 ```
 
-#### **Prompt 12 - Crear Archivo de Memorias**
+#### **Prompt 12 - Create Memory File**
 
 ```
-salva tambien todas esas memorias en un archivo memories.md para poder ser consultado mas adelante
+Also save all those memories in a memories.md file to be consulted later.
 ```
 
-#### **Prompt 13 - Crear README para Git**
+#### **Prompt 13 - Create README for Git**
 
 ```
-con base a todo lo realizado hasta ahora crea un archivo readme.md que sera usado en el repositorio git
+Based on everything done so far, create a readme.md file that will be used in the git repository.
 ```
 
-#### **Prompt 14 - Agregar Configuración Avanzada al README**
+#### **Prompt 14 - Add Advanced Configuration to README**
 
 ```
-add more detailed configuration and setup information to the README including environment variables, deployment instructions, and advanced features
+Add more detailed configuration and setup information to the README including environment variables, deployment instructions, and advanced features.
 ```
 
-#### **Prompt 15 - Traducción de Archivos al Inglés**
+#### **Prompt 15 - Translate Files to English**
 
 ```
-review all files in @[docs]  and translate to english  keep the informations as close as possible to the current details
+Review all files in @[docs] and translate to English, keep the information as close as possible to the current details.
 ```
 
-#### **Prompt 17 - Traducción del README**
+#### **Prompt 16 - Update Prompts File**
 
 ```
-the readme.md file need to be translate to english
+Update the prompts.md file and save all the prompts used since we started working until now ordered by the order in which they were executed and grouped by day.
+```
+
+#### **Prompt 17 - README Translation**
+
+```
+The readme.md file needs to be translated to English.
 ```
 
 ---
@@ -330,18 +336,186 @@ All user stories now documented in English with complete technical specification
 ### **Day 2 - Daily Prompts Registration (Oct 23, 2025)**
 
 #### **Prompt 18 - Daily Prompts Registration**
-
 ```
-quiero que todos los prompt que realize hoy sean registrados en @[docs/outputs/prompts.md] agrupados por dias
+I want all the prompts I made today to be registered in @[docs/outputs/prompts.md] grouped by days.
+```
 #### **Prompt 19 - English-Only Language Policy**
-
 ```
-todo el codigo y documentacion que sea generado tiene que estar escrito en ingles
+All code and documentation generated must be written in English.
+```
 #### **Prompt 20 - Backend Project Structure Creation**
+```
+Following the rules defined in @[file:///Users/ruben.lopez.deleon/Documents/Personal/Projetos/MTG/MTG/.windsurf/rules/techlead-backend-persona.md] inside the backend directory, create an initial project structure for a backend project with the creation of the project, create a techdecisions.md file that serves to define the decisions taken and that serves to guide developers in the future and maintain architectural and programming coherence.
+```
 
+---
+
+### **Day 3 - Development and Debugging (Oct 24, 2025)**
+
+#### **Prompt 1 - Explain esbuild Command**
 ```
-siguiendo las reflas definindas en @[file:///Users/ruben.lopez.deleon/Documents/Personal/Projetos/MTG/MTG/.windsurf/rules/techlead-backend-persona.md]  dentro del directorio backend crea una structura inicial de proyecto para un proyecto de backend  con a criacion del proyecto crea un archivo techdecisions.md que sirva para definir las deciones tomadas y que sirva para guiar a los desenvolvedores en el futuro y mantener la coherencia arquitectural y de programacion
+What does this line do: "esbuild src/interface/index.ts --bundle --outfile=dist/index.js --platform=node --target=node20 --external:@aws-sdk/* --watch"
 ```
+
+#### **Prompt 2 - Explain localTest Script**
+```
+What does this line do: "localTest": "esbuild localTest/index.ts --bundle --outfile=dist/localTest/index.js --platform=node --target=node20 --external:@aws-sdk/* --watch"
+```
+
+#### **Prompt 3 - Bundle Output Location**
+```
+Where is the bundle generated that is ready to run?
+```
+
+#### **Prompt 4 - Error Meaning and Fix**
+```
+What does this error mean: node ./backend/dist/localDev/index.js >outputerror.txt [error details]
+```
+
+#### **Prompt 5 - Code Review and 404 Handler**
+```
+What's wrong in the code and how to handle any unmatched path? @[code block]
+```
+
+#### **Prompt 6 - Persistent Error After Fix**
+```
+I get the same error when I remove the slash; how to handle any unmatched path?
+```
+
+#### **Prompt 7 - Payload Error Explanation**
+```
+When making a call without payload, I'm receiving this error: [error details]
+```
+
+#### **Prompt 8 - Document Errors**
+```
+Review the errors found so far and write a file in the directory @[docs/outputs] called errors.md with the registered errors and their solutions.
+```
+
+#### **Prompt 9 - Generate Memories**
+```
+Generate memories
+```
+
+#### **Prompt 10 - Create Project Memories**
+```
+Create memories of everything worked on since yesterday in this project and save in the file @[docs/outputs/memories.md] to be able to share.
+```
+
+#### **Prompt 11 - Update Prompts to English**
+```
+Update the prompts used today translating everything to English.
+```
+
+---
+
+## 📊 Updated Activity Summary
+
+### **General Statistics**
+
+- **Total Prompts:** 30 prompts (updated from 19)
+- **Working Days:** 3 days (Oct 22-24, 2025)
+- **User Stories Created:** 11 (US-001 through US-011)
+- **Main Files Modified:**
+  - Backend debugging and fixes (localDev/index.ts, package.json)
+  - Documentation updates (errors.md, memories.md, prompts.md)
+  - Error handling and memory generation for project continuity
+
+### **Updated Prompt Categorization by Topic**
+
+#### **1. Planning and Structure**
+- Prompt 1 (Day 1): Initial user stories creation
+- Prompt 2 (Day 1): Timeline and sprint planning
+- Prompt 9 (Day 1): Separation into specific components
+- Prompt 13 (Day 2): Git repository README creation
+
+#### **2. Technical Specifications**
+- Prompt 4 (Day 1): JSON API formats
+- Prompt 7 (Day 1): HTTP Status Codes and error handling
+- Prompt 14 (Day 2): Advanced configuration and deployment
+
+#### **3. Instrumentation and Monitoring**
+- Prompt 5 (Day 1): Frontend instrumentation
+- Prompt 6 (Day 1): API error handling in frontend
+- Prompt 8 (Day 1): Adjustment to FOSS tools
+
+#### **4. Development and Debugging**
+- Prompt 1-7 (Day 3): Backend esbuild commands, errors, and fixes
+- Prompt 8 (Day 3): Error documentation
+- Prompt 9-11 (Day 3): Memory generation and updates
+
+#### **5. Documentation and Translation**
+- Prompt 10 (Day 1): Creation of this prompts file
+- Prompt 11 (Day 2): Project memories creation
+- Prompt 12 (Day 2): Memory file creation
+- Prompt 15 (Day 2): Translation to English
+- Prompt 16 (Day 2): Prompts update
+- Prompt 17 (Day 2): README translation
+- Prompt 18 (Day 2): Daily prompts registration
+- Prompt 19 (Day 2): English-only language policy
+
+---
+
+## 🔄 Updated Project Status
+
+### **Completed User Stories** ✅
+All user stories now documented in English with complete technical specifications.
+
+### **Technical Documentation** ✅
+- **Project Timeline:** Complete sprint planning (translated)
+- **API Specification:** JSON formats, HTTP codes, error handling (translated)
+- **Frontend Requirements:** Complete UI/UX in Flutter (translated)
+- **Backend Requirements:** TypeScript, AWS Lambda, logging (translated)
+- **Monitoring Stack:** PostHog, Sentry, ELK Stack (FOSS) (translated)
+- **Docker Configuration:** Self-hosted deployment (translated)
+- **Errors and Fixes:** Documented in errors.md
+- **Project Memories:** Updated in memories.md
+
+### **Project Memories** ✅
+- **11 comprehensive memories** created covering all aspects
+- **Complete project context** preserved for future reference
+- **Technical decisions and patterns** documented
+- **Architecture and implementation details** recorded
+- **Recent development activities** added
+
+### **Repository Ready** ✅
+- **Professional README.md** created for GitHub and translated to English
+- **Complete documentation** in English
+- **All files translated** maintaining technical accuracy
+- **Ready for development** and public sharing
+
+---
+
+## 🎯 Latest Project Milestones
+
+1. **✅ Complete Translation:** All documentation translated to English
+2. **✅ Memory System:** Comprehensive memory system implemented
+3. **✅ Repository Setup:** Professional README and documentation ready
+4. **✅ Technical Architecture:** Complete stack documented in English
+5. **✅ Project Planning:** Timeline and sprints fully detailed
+6. **✅ README Translation:** Professional README translated and ready for GitHub
+7. **✅ Backend Debugging:** Errors fixed and documented
+8. **✅ Prompts Documentation:** Updated with English translations
+
+---
+
+## 📝 Latest Development Notes
+
+### **Current Methodological Approach**
+- Complete English documentation for international development
+- Memory system for project context preservation
+- Professional GitHub repository setup
+- Multi-level testing strategy (unit, integration, E2E)
+- Privacy-first and accessibility-compliant development
+- Active debugging and error resolution
+
+### **Latest Established Patterns**
+- Complete English documentation standard
+- Memory system integration for context preservation
+- Professional repository documentation
+- Multi-format testing (unit, integration, E2E, performance)
+- WCAG 2.1 AA accessibility compliance maintained
+- Self-hosted FOSS stack deployment ready
 
 ---
 
