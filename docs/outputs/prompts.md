@@ -12,6 +12,12 @@
 following the file @[docs/inputs/generalInfo.md] and applying the rules from @[.windsurf/rules/bo-pessoa.md] create in the directory @[/Users/ruben.lopez.deleon/Documents/Personal/Projetos/MTG/MTG/docs/US] a list of user stories with a title and a short description of the US objective
 ```
 
+#### **Prompt 20 - Frontend Technical Plan**
+
+```
+@[file:///Users/ruben.lopez.deleon/Documents/Personal/Projetos/MTG/MTG/.windsurf/rules/dev-frontend-persona.md] analyze the story @[docs/outputs/US/US-001a-frontend-requirements.md] ask all necessary questions to @[file:///Users/ruben.lopez.deleon/Documents/Personal/Projetos/MTG/MTG/.windsurf/rules/bo-pessoa.md] and @[.windsurf/rules/bo-pessoa.md] must answer these questions if they have the answer, otherwise leave the answer blank and I will answer if the question is technical in nature @[.windsurf/rules/techlead-frontend-persona.md] or @[.windsurf/rules/techlead-backend-persona.md] will answer autonomously with their knowledge if none have the answer leave the answer blank and I will answer questions and answers must be answered with minimal interaction with me. All this refinement process of the US I want to be documented in a file called US-001a-frontend-requirements-techplan.md. As always, register the prompt in the @[docs/outputs/prompts.md] file and all text must be in English
+```
+
 #### **Prompt 2 - Project Timeline**
 
 ```
@@ -72,8 +78,8 @@ create a prompts.md file and save all the prompts used since we started working 
 
 ### **General Statistics**
 
-- **Total Prompts:** 19 prompts
-- **Working Days:** 2 days (Oct 22-23, 2025)
+- **Total Prompts:** 20 prompts
+- **Working Days:** 3 days (Oct 22-24, 2025)
 - **User Stories Created:** 11 (US-001 through US-011)
 - **Main Files Modified:**
   - `docs/US/US-001-deck-size-validation.md` (extensively complemented)
@@ -87,6 +93,7 @@ create a prompts.md file and save all the prompts used since we started working 
   - `docs/US/US-001a-frontend-requirements.md` (created)
   - `docs/US/US-001b-backend-requirements.md` (created)
   - `docs/US/US-001c-instrumentation-monitoring.md` (created)
+  - `docs/outputs/US/US-001a-frontend-requirements-techplan.md` (created)
 
 ### **Prompt Categorization by Topic**
 
@@ -110,6 +117,7 @@ create a prompts.md file and save all the prompts used since we started working 
 #### **4. Iterative Development**
 
 - Prompt 3: US-001 complementation (process started)
+- Prompt 20: US-001a technical planning and refinement
 
 #### **5. Documentation**
 
