@@ -2,6 +2,21 @@
 
 This document logs errors encountered during development of the MTG Deck Analyzer, along with their causes and resolutions. Errors are listed chronologically based on conversation history.
 
+## 3. Missing Import for DeckListChanged Event
+
+- **Error Description**: `The method 'DeckListChanged' isn't defined for the type 'DeckInputField'` in `deck_input_field.dart`
+- **Cause**: The `DeckListChanged` event class was being used in the `onChanged` callback of a `TextField`, but the file was missing the required import for the event class.
+- **Solution**:
+  1. Added the missing import at the top of `deck_input_field.dart`:
+     ```dart
+     import '../bloc/deck_validation_event.dart';
+     ```
+  2. This makes the `DeckListChanged` event class available for use in the widget.
+- **Files Affected**:
+  - `lib/src/features/deck_validation/presentation/widgets/deck_input_field.dart`
+- **Status**: Resolved by adding the missing import.
+- **Verification**: The code should now compile without errors, and the text field should properly dispatch `DeckListChanged` events when the content changes.
+
 ## 1. Flutter Project Setup - Missing Platform Configurations
 
 - **Error Description**: `No devices found yet. Checking for wireless devices... No supported devices connected.` when running `flutter run`.

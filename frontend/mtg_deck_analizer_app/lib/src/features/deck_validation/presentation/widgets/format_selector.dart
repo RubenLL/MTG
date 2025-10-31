@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../bloc/deck_validation_bloc.dart';
+import 'package:mtg_deck_analizer_app/src/features/deck_validation/presentation/bloc/deck_validation_bloc.dart';
+import 'package:mtg_deck_analizer_app/src/features/deck_validation/presentation/bloc/deck_validation_state.dart';
+import 'package:mtg_deck_analizer_app/src/features/deck_validation/presentation/bloc/deck_validation_event.dart';
 
 class FormatSelector extends StatelessWidget {
   final List<String> formats = const [
