@@ -20,13 +20,13 @@ abstract class DeckValidationState extends Equatable {
 
   @override
   List<Object?> get props => [
-        deckList,
-        format,
-        isValid,
-        isSubmitting,
-        errorMessage,
-        validationResult,
-      ];
+    deckList,
+    format,
+    isValid,
+    isSubmitting,
+    errorMessage,
+    validationResult,
+  ];
 }
 
 class DeckValidationInitial extends DeckValidationState {
@@ -37,11 +37,7 @@ class DeckValidationLoading extends DeckValidationState {
   const DeckValidationLoading({
     required String deckList,
     required String format,
-  }) : super(
-          deckList: deckList,
-          format: format,
-          isSubmitting: true,
-        );
+  }) : super(deckList: deckList, format: format, isSubmitting: true);
 }
 
 class DeckValidationSuccess extends DeckValidationState {
@@ -52,14 +48,26 @@ class DeckValidationSuccess extends DeckValidationState {
     required String deckList,
     required String format,
   }) : super(
-          deckList: deckList,
-          format: format,
-          isValid: result.isValid,
-          validationResult: result,
-        );
+         deckList: deckList,
+         format: format,
+         isValid: result.isValid,
+         validationResult: result,
+       );
 
   @override
   List<Object?> get props => [result, ...super.props];
+
+  DeckValidationSuccess copyWith({
+    DeckValidationEntity? result,
+    String? deckList,
+    String? format,
+  }) {
+    return DeckValidationSuccess(
+      result: result ?? this.result,
+      deckList: deckList ?? this.deckList,
+      format: format ?? this.format,
+    );
+  }
 }
 
 class DeckValidationFailure extends DeckValidationState {
@@ -69,12 +77,19 @@ class DeckValidationFailure extends DeckValidationState {
     required this.message,
     required String deckList,
     required String format,
-  }) : super(
-          deckList: deckList,
-          format: format,
-          errorMessage: message,
-        );
+  }) : super(deckList: deckList, format: format, errorMessage: message);
 
   @override
   List<Object?> get props => [message, ...super.props];
+  DeckValidationFailure copyWith({
+    String? message,
+    String? deckList,
+    String? format,
+  }) {
+    return DeckValidationFailure(
+      message: message ?? this.message,
+      deckList: deckList ?? this.deckList,
+      format: format ?? this.format,
+    );
+  }
 }
