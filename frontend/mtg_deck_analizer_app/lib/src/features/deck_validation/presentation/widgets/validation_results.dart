@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../domain/entities/deck_validation_entity.dart';
 import '../bloc/deck_validation_bloc.dart';
+import '../bloc/deck_validation_state.dart';
 
 class ValidationResults extends StatelessWidget {
   const ValidationResults({super.key});
@@ -26,7 +27,9 @@ class ValidationResults extends StatelessWidget {
               padding: const EdgeInsets.all(16.0),
               child: Text(
                 state.errorMessage ?? 'An unknown error occurred',
-                style: TextStyle(color: Theme.of(context).colorScheme.onErrorContainer),
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onErrorContainer,
+                ),
               ),
             ),
           );
@@ -58,7 +61,10 @@ class ValidationResults extends StatelessWidget {
                   Text('Sideboard: ${result.sideboardCount} cards'),
                 if (result.issues.isNotEmpty) ...[
                   const SizedBox(height: 16),
-                  const Text('Issues:', style: TextStyle(fontWeight: FontWeight.bold)),
+                  const Text(
+                    'Issues:',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                   ...result.issues.map((issue) => Text('• $issue')).toList(),
                 ],
               ],
