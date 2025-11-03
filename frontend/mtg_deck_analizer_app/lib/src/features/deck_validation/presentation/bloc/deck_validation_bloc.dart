@@ -24,7 +24,7 @@ class DeckValidationBloc
     emit(
       state is DeckValidationSuccess
           ? (state as DeckValidationSuccess).copyWith(deckList: event.deckList)
-          : state.copyWith(deckList: event.deckList),
+          : (state as DeckValidationFailure).copyWith(deckList: event.deckList),
     );
   }
 
@@ -35,7 +35,7 @@ class DeckValidationBloc
     emit(
       state is DeckValidationSuccess
           ? (state as DeckValidationSuccess).copyWith(format: event.format)
-          : state.copyWith(format: event.format),
+          : (state as DeckValidationFailure).copyWith(format: event.format),
     );
   }
 

@@ -59,10 +59,64 @@ Complete API Specifications for MTG Deck Analyzer: Request/Response JSON formats
 ## 📊 Monitoring & Instrumentation
 
 **ID:** `monitoring_instrumentation_foss`
-**Tags:** monitoring, analytics, posthog, sentry, elk-stack, docker, privacy
+**Tags:** monitoring, analytics, posthog, sentry, elk-stack, docker, privacy, logstash, elasticsearch, kibana
 
 **Content:**
-Complete instrumentation system with FOSS tools: Analytics - PostHog self-hosted for user behavior and conversion tracking. Error tracking - Sentry open source for frontend and backend error capture. Performance monitoring - Web Vitals library for Core Web Vitals (LCP, FID, CLS) and custom performance traces. Logging - ELK Stack (Elasticsearch, Logstash, Kibana) for structured JSON logging. Dashboards - Grafana for metrics and alerts. Complete Docker Compose for self-hosted deployment. Privacy compliance with GDPR and data minimization.
+Complete instrumentation system with FOSS tools:
+
+### Core Components
+- **Analytics**: PostHog self-hosted for user behavior and conversion tracking
+- **Error Tracking**: Sentry open source for frontend and backend error capture
+- **Performance Monitoring**: Web Vitals library for Core Web Vitals (LCP, FID, CLS) and custom performance traces
+- **Logging**: ELK Stack (Elasticsearch, Logstash, Kibana) for structured JSON logging
+- **Dashboards**: Grafana for metrics and alerts
+- **Docker Compose** for self-hosted deployment
+
+### Logstash Configuration
+```ruby
+# logstash.conf
+input {
+  http {
+    port => 5044
+    codec => json
+  }
+  tcp {
+    port => 5045
+    codec => json
+  }
+}
+```
+
+### Elasticsearch Configuration
+```yaml
+elasticsearch:
+  image: docker.elastic.co/elasticsearch/elasticsearch:7.17.6
+  environment:
+    - "discovery.type=single-node"
+    - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+  ports:
+    - "9200:9200"
+  volumes:
+    - elasticsearch-data:/usr/share/elasticsearch/data
+```
+
+### Kibana Configuration
+```yaml
+kibana:
+  image: docker.elastic.co/kibana/kibana:7.17.6
+  environment:
+    - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+  ports:
+    - "5601:5601"
+  depends_on:
+    - elasticsearch
+```
+
+### Privacy & Compliance
+- GDPR compliance
+- Data minimization principles
+- All data stored on-premises
+- No third-party tracking
 
 ---
 
