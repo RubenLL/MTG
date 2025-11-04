@@ -2,6 +2,14 @@
 
 ## 📋 Prompt History by Day
 
+### **Day 3 - Card Existence Validation Planning (Nov 4, 2025)**
+
+#### **Prompt 22 - Card Existence Validation Technical Plan**
+
+```
+@[file:///Users/ruben.lopez.deleon/Documents/Personal/Projetos/MTG/MTG/.windsurf/rules/dev-backend-persona.md] check the information defined in @[docs/outputs/US/US-002-card-existence-validation.md] and prepare an implementation plan in the backend. Write this plan in a file US-002-card-existence-validation-techplan.md. For any technical questions, ask @[file:///Users/ruben.lopez.deleon/Documents/Personal/Projetos/MTG/MTG/.windsurf/rules/techlead-backend-persona.md]. For business questions, ask @[file:///Users/ruben.lopez.deleon/Documents/Personal/Projetos/MTG/MTG/.windsurf/rules/bo-pessoa.md]. These personas will respond without my interaction. If they don't have the answer, they will indicate that validation with the client is needed. Include all implementation plan questions and answers in the US-002-card-existence-validation-techplan.md file, but do not implement anything or make any adjustments until I instruct you to do so.
+```
+
 ---
 
 ### **Day 1 - Project Start (Oct 22, 2025)**
