@@ -1,0 +1,564 @@
+openapi: 3.0.0
+info:
+  title: MTG Deck Analyzer API
+  description: API for validating and analyzing Magic: The Gathering decks
+  version: 1.0.0
+  contact:
+    name: MTG Deck Analyzer Team
+    url: https://github.com/yourusername/mtg-deck-analyzer
+servers:
+  - url: http://localhost:3000
+    description: Local development server
+
+tags:
+  - name: Health
+    description: Health check endpoints
+  - name: Cards
+    description: Card lookup and validation
+  - name: Decks
+    description: Deck validation and analysis
+
+paths:
+  /health:
+    get:
+      tags: [Health]
+      summary: Health check
+      description: Check if the service is running
+      responses:
+        '200':
+          description: Service is healthy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+
+  /dev/validateCard:
+    post:
+      tags: [Cards]
+      summary: Validate a single card
+      description: Validate a single Magic: The Gathering card
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ValidateCardRequest'
+      responses:
+        '200':
+          description: Card validation successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CardValidationResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /dev/cards/search:
+    get:
+      tags: [Cards]
+      summary: Search for cards by name
+      parameters:
+        - in: query
+          name: q
+          schema:
+            type: string
+          required: true
+          description: Search query string
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            default: 5
+            minimum: 1
+            maximum: 50
+          description: Maximum number of results to return
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CardSearchResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /dev/cards/{id}:
+    get:
+      tags: [Cards]
+      summary: Get card by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: Card ID
+        - in: query
+          name: format
+          schema:
+            type: string
+          description: Format to check card legality
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CardResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /dev/validateCards:
+    post:
+      tags: [Cards]
+      summary: Batch validate multiple cards
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchValidateRequest'
+      responses:
+        '200':
+          description: Batch validation successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchValidationResponse'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /dev/validateDeckSize:
+    post:
+      tags: [Decks]
+      summary: Validate deck size and composition
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ValidateDeckRequest'
+      responses:
+        '200':
+          description: Deck validation successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeckValidationResponse'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+components:
+  schemas:
+    HealthResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: "healthy"
+        timestamp:
+          type: string
+          format: date-time
+          example: "2025-11-12T17:12:00.000Z"
+        service:
+          type: string
+          example: "mtg-deck-analyzer-local-test"
+        version:
+          type: string
+          example: "1.0.0"
+
+    ValidateCardRequest:
+      type: object
+      required:
+        - cardName
+      properties:
+        cardName:
+          type: string
+          description: Name of the card to validate
+          example: "Lightning Bolt"
+        format:
+          type: string
+          description: Format to check legality (e.g., "modern", "commander")
+          example: "modern"
+
+    CardValidationResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          type: object
+          properties:
+            card:
+              $ref: '#/components/schemas/Card'
+        requestId:
+          type: string
+          example: "local_1731433920000_abc123"
+        timestamp:
+          type: string
+          format: date-time
+
+    CardSearchResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          type: object
+          properties:
+            cards:
+              type: array
+              items:
+                $ref: '#/components/schemas/Card'
+            total:
+              type: integer
+              example: 1
+        requestId:
+          type: string
+          example: "local_1731433920000_abc123"
+        timestamp:
+          type: string
+          format: date-time
+
+    CardResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          type: object
+          properties:
+            card:
+              $ref: '#/components/schemas/CardWithDetails'
+        requestId:
+          type: string
+          example: "local_1731433920000_abc123"
+        timestamp:
+          type: string
+          format: date-time
+
+    BatchValidateRequest:
+      type: object
+      required:
+        - cards
+      properties:
+        cards:
+          type: array
+          items:
+            type: object
+            required:
+              - name
+            properties:
+              name:
+                type: string
+                description: Name of the card to validate
+                example: "Lightning Bolt"
+        format:
+          type: string
+          description: Format to check legality
+          example: "modern"
+
+    BatchValidationResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          type: object
+          properties:
+            results:
+              type: array
+              items:
+                $ref: '#/components/schemas/ValidationResult'
+            summary:
+              type: object
+              properties:
+                total:
+                  type: integer
+                  example: 1
+                valid:
+                  type: integer
+                  example: 1
+                invalid:
+                  type: integer
+                  example: 0
+        requestId:
+          type: string
+          example: "local_1731433920000_abc123"
+        timestamp:
+          type: string
+          format: date-time
+
+    ValidateDeckRequest:
+      type: object
+      required:
+        - deckList
+        - format
+      properties:
+        deckList:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeckCard'
+          minItems: 1
+        format:
+          type: string
+          enum: ["standard", "modern", "pioneer", "commander", "legacy", "vintage", "pauper"]
+          example: "modern"
+        includeSideboard:
+          type: boolean
+          default: false
+          example: false
+
+    DeckValidationResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          type: object
+          properties:
+            isValid:
+              type: boolean
+              example: true
+            currentCount:
+              type: integer
+              example: 60
+            validRange:
+              type: object
+              properties:
+                min:
+                  type: integer
+                  example: 60
+                max:
+                  type: integer
+                  nullable: true
+                  example: null
+            format:
+              type: string
+              example: "modern"
+            validationDetails:
+              type: object
+              properties:
+                mainDeckCount:
+                  type: integer
+                  example: 60
+                sideboardCount:
+                  type: integer
+                  example: 0
+                errors:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/ValidationErrorDetail'
+        requestId:
+          type: string
+          example: "local_1731433920000_abc123"
+        timestamp:
+          type: string
+          format: date-time
+
+    Card:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "abc123"
+        name:
+          type: string
+          example: "Lightning Bolt"
+        type:
+          type: string
+          example: "Instant"
+        manaCost:
+          type: string
+          example: "{R}"
+        imageUrl:
+          type: string
+          format: uri
+          example: "https://example.com/cards/lightning-bolt.jpg"
+
+    CardWithDetails:
+      allOf:
+        - $ref: '#/components/schemas/Card'
+        - type: object
+          properties:
+            legalInFormat:
+              type: boolean
+              example: true
+            legalFormats:
+              type: array
+              items:
+                type: string
+              example: ["modern", "legacy", "vintage"]
+
+    DeckCard:
+      type: object
+      required:
+        - cardName
+        - quantity
+      properties:
+        cardName:
+          type: string
+          example: "Lightning Bolt"
+        quantity:
+          type: integer
+          minimum: 1
+          maximum: 100
+          example: 4
+        isSideboard:
+          type: boolean
+          default: false
+          example: false
+
+    ValidationResult:
+      type: object
+      properties:
+        name:
+          type: string
+          example: "Lightning Bolt"
+        valid:
+          type: boolean
+          example: true
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+              example: "CARD_NOT_FOUND"
+            message:
+              type: string
+              example: "Card not found"
+        card:
+          $ref: '#/components/schemas/Card'
+
+    ValidationErrorDetail:
+      type: object
+      properties:
+        code:
+          type: string
+          example: "DECK_SIZE_TOO_SMALL"
+        message:
+          type: string
+          example: "Deck must contain at least 60 cards"
+        details:
+          type: object
+          additionalProperties: true
+
+    ErrorResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+              example: "INVALID_INPUT"
+            type:
+              type: string
+              example: "VALIDATION"
+            message:
+              type: string
+              example: "Validation failed"
+            details:
+              type: string
+              example: "Request body must contain a 'cards' array"
+            retryable:
+              type: boolean
+              example: false
+        requestId:
+          type: string
+          example: "local_1731433920000_abc123"
+        timestamp:
+          type: string
+          format: date-time
+          example: "2025-11-12T17:12:00.000Z"
+
+  responses:
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            success: false
+            error:
+              code: "INVALID_INPUT"
+              type: "VALIDATION"
+              message: "Missing required parameter"
+              details: "The 'q' parameter is required"
+              retryable: false
+            requestId: "local_1731433920000_abc123"
+            timestamp: "2025-11-12T17:12:00.000Z"
+
+    NotFound:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            success: false
+            error:
+              code: "CARD_NOT_FOUND"
+              type: "NOT_FOUND"
+              message: "Card not found"
+              details: "Could not find card with ID: abc123"
+              retryable: false
+            requestId: "local_1731433920000_abc123"
+            timestamp: "2025-11-12T17:12:00.000Z"
+
+    ValidationError:
+      description: Unprocessable Entity
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            success: false
+            error:
+              code: "INVALID_INPUT"
+              type: "VALIDATION"
+              message: "Validation failed"
+              details:
+                - field: "deckList"
+                  message: "must contain at least 1 items"
+              retryable: false
+            requestId: "local_1731433920000_abc123"
+            timestamp: "2025-11-12T17:12:00.000Z"
+
+    ServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            success: false
+            error:
+              code: "INTERNAL_SERVER_ERROR"
+              type: "SERVER"
+              message: "An unexpected error occurred"
+              details: "Database connection failed"
+              retryable: true
+            requestId: "local_1731433920000_abc123"
+            timestamp: "2025-11-12T17:12:00.000Z"

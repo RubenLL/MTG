@@ -1,22 +1,27 @@
 # US-001b Backend Implementation Analysis
 
 ## Overview
+
 This document outlines the discrepancies between the backend requirements and the current implementation, along with proposed solutions.
 
 ## Implementation Status
 
 ### ✅ Implemented Correctly
+
 1. **Basic API Structure**
+
    - Endpoint: `/dev/validateDeckSize` (differs from requirements)
    - HTTP Methods: POST
    - Content-Type: application/json
 
 2. **Request Validation**
+
    - Joi schema validation
    - Required fields: deckList, format
    - Optional fields: includeSideboard
 
 3. **Error Handling**
+
    - Structured error responses
    - Request ID generation
    - Timestamp in responses
@@ -30,15 +35,18 @@ This document outlines the discrepancies between the backend requirements and th
 ## 🔄 Discrepancies and Issues
 
 ### 1. Endpoint Path Mismatch
+
 - **Requirement**: `/api/validate-deck-size`
 - **Current**: `/dev/validateDeckSize`
 - **Impact**: Inconsistent API contract
-- **Proposed Solution**: 
+- **Proposed Solution**:
   - Update to `/api/validate-deck-size` for production
   - Consider versioning (e.g., `/api/v1/validate-deck-size`)
 
 ### 2. Response Format Inconsistencies
+
 - **Missing Fields in Success Response**:
+
   - `validationDetails.formatRequirements`
   - `validationDetails.totalCards`
   - `validRange` object structure
@@ -49,12 +57,14 @@ This document outlines the discrepancies between the backend requirements and th
   - Missing `validationErrors` array in error details
 
 ### 3. Input Validation Gaps
+
 - **Missing Validations**:
   - Card name length limits not enforced
   - Maximum deck size validations
   - Format-specific validation rules
 
 ### 4. Business Logic Implementation
+
 - **Deck Analysis**:
   - Missing categorization of cards by type
   - No validation of card quantities against format rules
@@ -63,6 +73,7 @@ This document outlines the discrepancies between the backend requirements and th
 ## 🛠 Proposed Implementation Plan
 
 ### 1. Update API Contract
+
 ```typescript
 // Update route
 app.post('/api/v1/validate-deck-size', ...);
@@ -91,6 +102,7 @@ interface ApiResponse<T> {
 ```
 
 ### 2. Enhance Validation
+
 ```typescript
 // Add format-specific validation rules
 const FORMAT_RULES = {
@@ -98,7 +110,7 @@ const FORMAT_RULES = {
     minMainDeck: 60,
     maxMainDeck: null,
     maxSideboard: 15,
-    description: 'Minimum 60 cards in main deck, maximum 15 in sideboard',
+    description: "Minimum 60 cards in main deck, maximum 15 in sideboard",
   },
   // Add other formats...
 };
@@ -111,6 +123,7 @@ function categorizeCards(deckList: CardEntry[]): Record<string, number> {
 ```
 
 ### 3. Improve Error Handling
+
 ```typescript
 // Standardize error responses
 function createErrorResponse(
@@ -142,11 +155,13 @@ function createErrorResponse(
 ## 📅 Next Steps
 
 1. **Immediate Fixes (Sprint 1)**
+
    - Update endpoint path to match requirements
    - Standardize response formats
    - Add missing validations
 
 2. **Short-term (Sprint 2)**
+
    - Implement format-specific validation rules
    - Add card type categorization
    - Enhance error details and messages
@@ -159,9 +174,13 @@ function createErrorResponse(
 ## 📋 Open Questions
 
 1. Should we support partial validation (continue validation after first error)?
+   no
 2. Are there any performance considerations for large deck lists?
+   no
 3. Do we need to validate card names against a known card database?
+   not needed
 
 ---
-*Last updated: 2025-11-03*
-*Author: MTG Deck Analyzer Team*
+
+_Last updated: 2025-11-03_
+_Author: MTG Deck Analyzer Team_
