@@ -53,9 +53,12 @@
     "@middy/input-output-logger": "^4.7.0",
     "@middy/validator": "^4.7.0",
     "@types/express": "^5.0.4",
+    "@types/mongodb": "^4.0.6",
     "axios": "^1.6.2",
+    "dotenv": "^17.2.3",
     "express": "^5.1.0",
-    "joi": "^17.11.0"
+    "joi": "^17.11.0",
+    "mongodb": "^6.20.0"
   },
   "engines": {
     "node": ">=20.0.0"

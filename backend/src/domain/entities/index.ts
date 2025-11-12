@@ -18,6 +18,9 @@ export interface Card {
   readonly isLegalInFormats: readonly MTGFormat[];
   readonly isBannedInFormats: readonly MTGFormat[];
   readonly isRestrictedInFormats: readonly MTGFormat[];
+  readonly legalities?: {
+    [key: string]: 'legal' | 'not_legal' | 'banned' | 'restricted';
+  };
   readonly setCode: string;
   readonly collectorNumber: string;
   readonly imageUrl?: string;

@@ -2,6 +2,21 @@
 
 This document logs errors encountered during development of the MTG Deck Analyzer, along with their causes and resolutions. Errors are listed chronologically based on conversation history.
 
+## 4. TypeScript Error: 'error' is of type 'unknown'
+
+- **Error Description**: `'error' is of type 'unknown'` in `localDev/index.ts` when trying to access `error.message` in a catch block.
+- **Cause**: TypeScript 4.0+ treats caught errors as `unknown` by default for better type safety, requiring explicit type checking before accessing properties.
+- **Solution**:
+  1. Added a type guard to safely access the error message:
+     ```typescript
+     const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
+     ```
+  2. Used the safe `errorMessage` variable in the response instead of directly accessing `error.message`
+- **Files Affected**:
+  - `/backend/localDev/index.ts`
+- **Status**: Resolved by implementing proper type checking for caught errors.
+- **Verification**: The code now compiles without TypeScript errors and safely handles both Error objects and unknown error types.
+
 ## 3. Missing Import for DeckListChanged Event
 
 - **Error Description**: `The method 'DeckListChanged' isn't defined for the type 'DeckInputField'` in `deck_input_field.dart`
